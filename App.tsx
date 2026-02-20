@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
+import IconButton from "./components/UI/IconButton";
 import { JSX } from "react";
 
 export type RootStackParamList = {
@@ -26,7 +27,20 @@ export default function App(): JSX.Element {
       <StatusBar />
       <NavigationContainer>
         <Stack.Navigator screenOptions={screenOptions}>
-          <Stack.Screen name="AllPlaces" component={AllPlaces} />
+          <Stack.Screen
+            name="AllPlaces"
+            component={AllPlaces}
+            options={({ navigation }) => ({
+              headerRight: ({ tintColor }) => (
+                <IconButton
+                  icon="add"
+                  size={24}
+                  color={tintColor ?? "Black"}
+                  onPress={() => navigation.navigate("AddPlace")}
+                />
+              ),
+            })}
+          />
           <Stack.Screen
             name="AddPlace"
             component={AddPlace}
