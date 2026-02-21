@@ -31,6 +31,7 @@ export default function App(): JSX.Element {
             name="AllPlaces"
             component={AllPlaces}
             options={({ navigation }) => ({
+              title: "Your favorite places",
               headerRight: ({ tintColor }) => (
                 <IconButton
                   icon="add"
@@ -44,7 +45,7 @@ export default function App(): JSX.Element {
           <Stack.Screen
             name="AddPlace"
             component={AddPlace}
-            options={{ title: "Add new place" }}
+            options={{ title: "Add a new place" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
