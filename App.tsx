@@ -9,6 +9,7 @@ import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { JSX } from "react";
+import { Color } from "./constants/color";
 
 export type RootStackParamList = {
   AllPlaces: undefined;
@@ -18,15 +19,21 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const screenOptions: NativeStackNavigationOptions = {
-  headerShown: true,
+  headerStyle: { backgroundColor: Color.primary500 },
+  headerTintColor: Color.gray700,
 };
 
 export default function App(): JSX.Element {
   return (
     <>
-      <StatusBar />
+      <StatusBar style="inverted" translucent={false} />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Navigator
+          screenOptions={{
+            ...screenOptions,
+            contentStyle: { backgroundColor: Color.gray700 },
+          }}
+        >
           <Stack.Screen
             name="AllPlaces"
             component={AllPlaces}
