@@ -1,4 +1,4 @@
-    import { ILocation,IPlaceData,ICreatePlaceDTO } from "../types/place";
+    import { ILocation } from "../types/place";
 
    
 
