@@ -1,20 +1,72 @@
-import React, { JSX } from "react";
-import { Text, View } from "react-native";
+import React, { JSX, useState } from "react";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from "react-native";
+import { Color } from "../../constants/color";
+import { Place } from "../../models/Place";
 
-const PlaceForm: React.FC = (): JSX.Element => {
+interface PlaceFormProps {
+  initialData?: Partial<Place>;
+}
+
+const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
+  const [enteredTitle, setEnteredTitle] = useState<string>(
+    initialData?.title || "",
+  );
+
+  const handleTitleChange: TextInputProps["onChangeText"] = (enteredTitle) => {
+    setEnteredTitle(enteredTitle);
+  };
+
   return (
-    <View>
-      <Text>The Place Form</Text>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.keyboardAvoidingView}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+    >
+      <ScrollView style={styles.form}>
+        <View>
+          <Text style={styles.label}>Title</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={handleTitleChange}
+            value={enteredTitle}
+          />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
-// function PlaceForm() {
-//   return (
-//     <View>
-//       <Text>The Place Form</Text>
-//     </View>
-//   );
-// }
-
 export default PlaceForm;
+
+const styles = StyleSheet.create({
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  form: {
+    flex: 1,
+    padding: 24,
+  },
+  label: {
+    fontWeight: "bold",
+    marginBottom: 4,
+    color: Color.primary500,
+  },
+  input: {
+    marginVertical: 8,
+    paddingHorizontal: 4,
+    paddingVertical: 8,
+    fontSize: 16,
+    borderBottomColor: Color.primary700,
+    borderBottomWidth: 2,
+    backgroundColor: Color.primary100,
+  },
+});
