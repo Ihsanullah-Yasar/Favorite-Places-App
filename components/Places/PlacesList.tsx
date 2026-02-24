@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Place } from "../../models/Place";
 import { View, Text, StyleSheet, FlatList, ListRenderItem } from "react-native";
 import PlaceItem from "./PlaceItem";
+import { Color } from "../../constants/color";
 
 interface PlaceListProps {
   places: Place[];
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: "#666",
+    color: Color.primary200,
     textAlign: "center",
   },
   separator: {
