@@ -68,6 +68,7 @@ const AllPlaces: React.FC<AllPlacesProps> = ({ navigation }) => {
       </View>
     );
   }
+  return <PlaceList places={[]} />;
 };
 
 const styles = StyleSheet.create({
