@@ -9,7 +9,7 @@ import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { JSX } from "react";
-import { Color } from "./constants/color";
+import { Colors } from "./constants/colors";
 
 export type RootStackParamList = {
   AllPlaces: undefined;
@@ -19,8 +19,8 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const screenOptions: NativeStackNavigationOptions = {
-  headerStyle: { backgroundColor: Color.primary500 },
-  headerTintColor: Color.gray700,
+  headerStyle: { backgroundColor: Colors.primary500 },
+  headerTintColor: Colors.gray700,
 };
 
 export default function App(): JSX.Element {
@@ -31,7 +31,7 @@ export default function App(): JSX.Element {
         <Stack.Navigator
           screenOptions={{
             ...screenOptions,
-            contentStyle: { backgroundColor: Color.gray700 },
+            contentStyle: { backgroundColor: Colors.gray700 },
           }}
         >
           <Stack.Screen
