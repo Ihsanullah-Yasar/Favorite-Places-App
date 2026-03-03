@@ -16,6 +16,11 @@
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDmefiGMKVaUqxtRtE2LHI2AwUePHK4G6Q"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -31,6 +36,12 @@
         "expo-image-picker",
         {
           "cameraPermission": "The app needs to access your camera in order to take picture of favorite place."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow Favorite Places to access your location."
         }
       ]
     ]
