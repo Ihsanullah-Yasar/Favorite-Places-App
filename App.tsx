@@ -10,11 +10,8 @@ import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import { JSX } from "react";
 import { Colors } from "./constants/colors";
-
-export type RootStackParamList = {
-  AllPlaces: undefined;
-  AddPlace: undefined;
-};
+import Map from "./screens/Map";
+import { RootStackParamList } from "./types/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -54,6 +51,7 @@ export default function App(): JSX.Element {
             component={AddPlace}
             options={{ title: "Add a new place" }}
           />
+          <Stack.Screen name="Map" component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
