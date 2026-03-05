@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import PlaceForm from "../components/Places/PlaceForm";
-import { RootStackParamList } from "../App";
 import React, { JSX } from "react";
+import { RootStackParamList } from "../types/navigation";
 
 type AddPlaceProps = NativeStackScreenProps<RootStackParamList, "AddPlace">;
 
