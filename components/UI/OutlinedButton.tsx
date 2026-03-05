@@ -35,6 +35,7 @@ const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   );
   return (
     <Pressable
+      onPress={handlePress}
       style={({ pressed }) => [
         styles.button,
         pressed && !disabled && styles.pressed,
