@@ -1,4 +1,4 @@
-import React, { JSX, useState } from "react";
+import React, { JSX, useCallback, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,7 +11,10 @@ import {
 } from "react-native";
 import { Colors } from "../../constants/colors";
 import { Place } from "../../models/Place";
-import ImagePicker from "./ImagePicker";
+import ImagePicker, { PickedImage } from "./ImagePicker";
+import LocationPicker, { location } from "./LocationPicker";
+import Button from "../UI/Button";
+
 interface PlaceFormProps {
   initialData?: Partial<Place>;
 }
@@ -20,9 +23,24 @@ const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
   const [enteredTitle, setEnteredTitle] = useState<string>(
     initialData?.title || "",
   );
-
+  const [selectedImage, setSelectedImage] = useState<PickedImage | null>(null);
+  const [pickedLocation, setPickedLocation] = useState<location | null>(null);
   const handleTitleChange: TextInputProps["onChangeText"] = (enteredTitle) => {
     setEnteredTitle(enteredTitle);
+  };
+
+  const takeImageHandler = (imageUrl: PickedImage) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const pickLocationHandler = useCallback((location: location) => {
+    setPickedLocation(location);
+  }, []);
+
+  const savePlaceHandler = () => {
+    console.log(enteredTitle);
+    console.log(selectedImage);
+    console.log(pickedLocation);
   };
 
   return (
@@ -40,8 +58,9 @@ const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
             value={enteredTitle}
           />
         </View>
-        <ImagePicker />
-        //locationPicker cmp
+        <ImagePicker onTakeImage={takeImageHandler} />
+        <LocationPicker onPickLocation={pickLocationHandler} />
+        <Button onPress={savePlaceHandler}>Add Place</Button>
       </ScrollView>
     </KeyboardAvoidingView>
   );
