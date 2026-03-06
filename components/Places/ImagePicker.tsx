@@ -18,7 +18,7 @@ import {
 } from "react-native";
 import { Colors } from "../../constants/colors";
 
-type PickedImage = {
+export type PickedImage = {
   uri: string;
   width: number;
   height: number;
@@ -27,7 +27,7 @@ type PickedImage = {
   fileSize?: number;
 };
 interface ImagePickerProps {
-  onImagePicked?: (image: PickedImage) => void;
+  onImagePicked: (image: PickedImage) => void;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
@@ -74,7 +74,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           fileSize: asset.fileSize,
         };
         setPickedImage(image);
-        onImagePicked?.(image);
+        onImagePicked(image);
       }
     } catch (error) {
       Alert.alert("Error", "Failed to take image, Please try again.");
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.primary100,
     borderRadius: 4,
+    overflow: "hidden",
   },
   image: {
     height: "100%",
