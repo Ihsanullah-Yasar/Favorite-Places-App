@@ -27,11 +27,11 @@ export type PickedImage = {
   fileSize?: number;
 };
 interface ImagePickerProps {
-  onImagePicked: (image: PickedImage) => void;
+  onTakeImage: (image: PickedImage) => void;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
-  onImagePicked,
+  onTakeImage,
 }): JSX.Element => {
   const [pickedImage, setPickedImage] = useState<PickedImage | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -74,14 +74,14 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           fileSize: asset.fileSize,
         };
         setPickedImage(image);
-        onImagePicked(image);
+        onTakeImage(image);
       }
     } catch (error) {
       Alert.alert("Error", "Failed to take image, Please try again.");
     } finally {
       setIsLoading(false);
     }
-  }, [onImagePicked]);
+  }, [onTakeImage]);
 
   if (isLoading) {
     return <ActivityIndicator size="large" color={Colors.primary500} />;
