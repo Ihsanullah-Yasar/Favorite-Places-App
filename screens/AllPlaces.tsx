@@ -7,7 +7,7 @@ interface AllPlacesProps {
   navigation: any;
 }
 
-const AllPlaces: React.FC<AllPlacesProps> = ({ navigation }) => {
+function AllPlaces({ navigation }: AllPlacesProps) {
   const [places, setPlaces] = useState<Place[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +69,7 @@ const AllPlaces: React.FC<AllPlacesProps> = ({ navigation }) => {
     );
   }
   return <PlaceList places={[]} />;
-};
+}
 
 const styles = StyleSheet.create({
   container: {
