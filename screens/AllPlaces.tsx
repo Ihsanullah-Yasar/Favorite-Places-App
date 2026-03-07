@@ -1,8 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PlaceList from "../components/Places/PlacesList";
 import { Place } from "../models/Place";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import { RouteProp, useIsFocused, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../types/navigation";
 
+type RouteParams = RouteProp<RootStackParamList, "AllPlaces">;
 interface AllPlacesProps {
   navigation: any;
 }
@@ -11,13 +14,19 @@ function AllPlaces({ navigation }: AllPlacesProps) {
   const [places, setPlaces] = useState<Place[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const isFocused = useIsFocused();
+  const route = useRoute<RouteParams>();
   // Load places when screen comes into focus
   // useFocusEffect(
   //   useCallback(() => {
   //     loadPlaces();
   //   }, [])
   // );
+  useEffect(() => {
+    if (isFocused && route.params) {
+      setPlaces((curPlaces) => [...curPlaces, route.params.place]);
+    }
+  }, [isFocused, route]);
 
   /**
    * Load places from storage/service
@@ -68,7 +77,7 @@ function AllPlaces({ navigation }: AllPlacesProps) {
       </View>
     );
   }
-  return <PlaceList places={[]} />;
+  return <PlaceList places={places} />;
 }
 
 const styles = StyleSheet.create({
