@@ -31,7 +31,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-     "plugins": [
+    "plugins": [
       [
         "expo-image-picker",
         {
@@ -43,7 +43,8 @@
         {
           "locationWhenInUsePermission": "Allow Favorite Places to access your location."
         }
-      ]
+      ],
+      "expo-sqlite"
     ]
   }
 }
