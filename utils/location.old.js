@@ -1,4 +1,4 @@
-const GOOGLE_API_KEY = "AIzaSyDjw0wxpQ1_CWKm01-nfYMKs1I-Gtvtgy0";
+const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 export function getMapImagePreviewUrl(lat, lng) {
   const imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=13&size=400x200&maptype=roadmap
