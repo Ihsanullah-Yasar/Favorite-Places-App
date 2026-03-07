@@ -1,5 +1,5 @@
 // const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
-const GOOGLE_API_KEY = "AIzaSyDmefiGMKVaUqxtRtE2LHI2AwUePHK4G6Q";
+const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 
 export function getMapImagePreviewUrl(lat: number, lng: number): string {
