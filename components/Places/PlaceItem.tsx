@@ -4,7 +4,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface PlaceItemProps {
   place: Place;
-  onSelect: (placeId: string) => void;
+  onSelect?: (placeId: string) => void;
 }
 
 const PlaceItem: React.FC<PlaceItemProps> = React.memo(
@@ -15,7 +15,7 @@ const PlaceItem: React.FC<PlaceItemProps> = React.memo(
     );
 
     const handlePress = useCallback(() => {
-      onSelect(place.id);
+      onSelect?.(place.id);
     }, [onSelect, place.id]);
 
     return (
