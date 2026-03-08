@@ -8,4 +8,8 @@ export function getMapImagePreviewUrl(lat: number, lng: number): string {
 console.log("image preview url",imagePreviewUrl);
   return imagePreviewUrl;
 }
+
+export async function getAddress(){
+  
+}
   
