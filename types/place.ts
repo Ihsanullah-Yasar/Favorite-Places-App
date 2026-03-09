@@ -8,6 +8,7 @@ export interface ILocation {
   lng: number;
   /** Optional altitude in meters */
   alt?: number;
+  address? : string
 }
 
 /**
