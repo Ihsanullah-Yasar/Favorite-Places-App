@@ -6,7 +6,7 @@ import MapView, { MapPressEvent, Marker, Region } from "react-native-maps";
 import { RootStackParamList } from "../types/navigation";
 import IconButton from "../components/UI/IconButton";
 
-interface coordinate {
+interface Coordinate {
   lat: number;
   lng: number;
 }
@@ -20,8 +20,8 @@ const INITIAL_REGION: Region = {
 
 type MapProps = NativeStackScreenProps<RootStackParamList, "Map">;
 
-const Map: FC<MapProps> = ({ navigation }) => {
-  const [selectedLocation, setSelectedLocation] = useState<coordinate | null>(
+function Map({ navigation }: MapProps) {
+  const [selectedLocation, setSelectedLocation] = useState<Coordinate | null>(
     null,
   );
 
@@ -74,7 +74,7 @@ const Map: FC<MapProps> = ({ navigation }) => {
       )}
     </MapView>
   );
-};
+}
 
 export default Map;
 
