@@ -11,9 +11,11 @@ import {
 } from "react-native";
 import { Colors } from "../../constants/colors";
 import { Place } from "../../models/Place";
-import ImagePicker, { PickedImage } from "./ImagePicker";
-import LocationPicker, { location } from "./LocationPicker";
+import ImagePicker from "./ImagePicker";
+import LocationPicker from "./LocationPicker";
 import Button from "../UI/Button";
+import { ILocation } from "../../types/place";
+import { PickedImage } from "../../types/image";
 
 interface PlaceFormProps {
   initialData?: Partial<Place>;
@@ -24,7 +26,7 @@ const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
     initialData?.title || "",
   );
   const [selectedImage, setSelectedImage] = useState<PickedImage | null>(null);
-  const [pickedLocation, setPickedLocation] = useState<location | null>(null);
+  const [pickedLocation, setPickedLocation] = useState<ILocation | null>(null);
   const handleTitleChange: TextInputProps["onChangeText"] = (enteredTitle) => {
     setEnteredTitle(enteredTitle);
   };
@@ -33,7 +35,7 @@ const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
     setSelectedImage(imageUrl);
   };
 
-  const pickLocationHandler = useCallback((location: location) => {
+  const pickLocationHandler = useCallback((location: ILocation) => {
     setPickedLocation(location);
   }, []);
 
