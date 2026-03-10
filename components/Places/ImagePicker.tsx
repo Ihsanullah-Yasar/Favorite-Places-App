@@ -5,40 +5,38 @@ import {
   PermissionStatus,
   useCameraPermissions,
 } from "expo-image-picker";
-import React, { JSX, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
   Button,
   Image,
-  ImageProps,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import { Colors } from "../../constants/colors";
+import { PickedImage } from "../../types/image";
 
-export type PickedImage = {
-  uri: string;
-  width: number;
-  height: number;
-  type?: ImagePickerAsset["type"];
-  fileName?: ImagePickerAsset["fileName"];
-  fileSize?: number;
-};
 interface ImagePickerProps {
   onTakeImage: (image: PickedImage) => void;
 }
 
-const ImagePicker: React.FC<ImagePickerProps> = ({
-  onTakeImage,
-}): JSX.Element => {
+const CAMERA_OPTIONS: ImagePickerOptions = {
+  allowsEditing: true,
+  aspect: [16, 9],
+  quality: 0.5,
+  // mediaTypes: "images",
+  // allowsMultipleSelection: false
+};
+
+function ImagePicker({ onTakeImage }: ImagePickerProps) {
   const [pickedImage, setPickedImage] = useState<PickedImage | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
 
-  const verifyPermissions = async (): Promise<boolean> => {
+  const verifyPermissions = useCallback(async (): Promise<boolean> => {
     if (cameraPermissionInformation?.status === PermissionStatus.UNDETERMINED) {
       const permissionResponse = await requestPermission();
       return permissionResponse.granted;
@@ -51,20 +49,17 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       return false;
     }
     return true;
-  };
+  }, [cameraPermissionInformation, requestPermission]);
   const takeImageHandler = useCallback(async (): Promise<void> => {
     try {
+      setIsLoading(true);
+
       const hasPermission = await verifyPermissions();
       if (!hasPermission) return;
-      const result = await launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.5,
-        // mediaTypes: "images",
-        // allowsMultipleSelection: false
-      });
+      const result = await launchCameraAsync(CAMERA_OPTIONS);
       if (!result.canceled && result.assets && result.assets.length > 0) {
         const asset = result.assets[0];
+
         const image: PickedImage = {
           uri: asset.uri,
           width: asset.width,
@@ -73,6 +68,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
           fileName: asset.fileName,
           fileSize: asset.fileSize,
         };
+
         setPickedImage(image);
         onTakeImage(image);
       }
@@ -81,7 +77,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }, [onTakeImage]);
+  }, [onTakeImage, verifyPermissions]);
 
   if (isLoading) {
     return <ActivityIndicator size="large" color={Colors.primary500} />;
@@ -103,7 +99,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       />
     </View>
   );
-};
+}
 
 export default ImagePicker;
 
