@@ -8,7 +8,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constants/colors";
-import { getMapImagePreviewUrl } from "../../utils/location";
+import { getAddress, getMapImagePreviewUrl } from "../../utils/location";
 import {
   RouteProp,
   useNavigation,
@@ -20,21 +20,18 @@ import {
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
+import { ILocation } from "../../types/place";
 
-export interface location {
-  lat: number;
-  lng: number;
-}
 type routeParams = RouteProp<RootStackParamList, "AddPlace">;
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "AddPlace">;
 
 interface LocationPickerProps {
-  onPickLocation: (location: location) => void;
+  onPickLocation: (location: ILocation) => void;
 }
 
-const LocationPicker: FC<LocationPickerProps> = ({ onPickLocation }) => {
-  const [pickedLocation, setPickedLocation] = useState<location | null>(null);
+function LocationPicker({ onPickLocation }: LocationPickerProps) {
+  const [pickedLocation, setPickedLocation] = useState<ILocation | null>(null);
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<routeParams>();
   const isFocused = useIsFocused();
@@ -42,17 +39,27 @@ const LocationPicker: FC<LocationPickerProps> = ({ onPickLocation }) => {
     useForegroundPermissions();
 
   useEffect(() => {
-    if (isFocused && route.params) {
+    const pickedLat = route.params?.pickedLat;
+    const pickedLng = route.params?.pickedLng;
+    if (isFocused && pickedLat && pickedLng) {
       const mapPickedLocation = {
-        lat: route.params.pickedLat,
-        lng: route.params.pickedLng,
+        lat: pickedLat,
+        lng: pickedLng,
       };
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
 
   useEffect(() => {
-    if (pickedLocation) onPickLocation(pickedLocation);
+    async function getFormattedAddress() {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng,
+        );
+        onPickLocation({ ...pickedLocation, address: address });
+      }
+    }
   }, [pickedLocation, onPickLocation]);
 
   const verifyPermission = useCallback(async (): Promise<boolean> => {
@@ -86,7 +93,6 @@ const LocationPicker: FC<LocationPickerProps> = ({ onPickLocation }) => {
         "Could not fetch location",
         "Please try again later or pick a location on the map.",
       );
-      console.error(error);
     }
   }, [verifyPermission]);
   const pickOnMapHandler = useCallback(() => {
@@ -117,7 +123,7 @@ const LocationPicker: FC<LocationPickerProps> = ({ onPickLocation }) => {
       </View>
     </View>
   );
-};
+}
 
 export default LocationPicker;
 
