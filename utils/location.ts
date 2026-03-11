@@ -18,7 +18,10 @@ export async function getAddress(lat: number,lng: number){
   }
 
   const data = await response.json();
-  const address=data.results[0].formated_address;
+  const address=data.results?.[0]?.formatted_address;
+  if(!address){
+    throw new Error('No address found for the location');
+  }
   return address;
 }
   
