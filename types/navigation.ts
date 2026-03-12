@@ -1,5 +1,8 @@
+import { Place } from "../models/Place";
+
 export type RootStackParamList = {
-  AllPlaces: undefined;
-  AddPlace: {pickedLat: number, pickedLng: number};
+  AllPlaces: {place: Place};
+  AddPlace: {pickedLat?: number, pickedLng?: number};
   Map: undefined;
+  PlaceDetails: {place: Place};
 };
