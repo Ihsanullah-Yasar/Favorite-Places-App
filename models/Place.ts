@@ -9,18 +9,18 @@
         public readonly address: string;
         public readonly location: Readonly<ILocation>
         
-        constructor(title: string,imageUrl: string,address: string,location: ILocation){
-            this.ValidateInput(title,imageUrl,address,location);
+        constructor(title: string,imageUrl: string,location: ILocation){
+            this.ValidateInput(title,imageUrl,location);
 
             this.title=this.sanitizeString(title);
             this.imageUrl=this.normalizeUrl(imageUrl);
-            this.address= this.sanitizeString(address);
+            this.address= this.sanitizeString(location.address ?? "");
             this.location=Object.freeze({ ...location});  //immutable   
             this.id= this.generateId();
         }
 
         // validate construct inputs
-        private ValidateInput(title: string,imageUrl: string, address: string, location: ILocation): void{
+        private ValidateInput(title: string,imageUrl: string, location: ILocation): void{
             if(!title?.trim()){
                 throw new Error("Title is required.")
             }
@@ -29,7 +29,7 @@
                 throw new Error("Image Url is required.")
             }
 
-            if(!address?.trim()){
+            if(!location.address?.trim()){
                 throw new Error("Address is required.")
             }
 
@@ -76,7 +76,7 @@
     }
 
         private generateId(): string{
-            const timestamp= new Date();
+            const timestamp= Date.now();
             const random= Math.random().toString(36).substring(2,15);
             return `${timestamp}-${random}`;
         }
@@ -107,7 +107,6 @@
         return new Place(
         data.title,
         data.imageUrl,
-        data.address,
         data.location
         );
     }
