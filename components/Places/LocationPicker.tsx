@@ -4,7 +4,7 @@ import {
   PermissionStatus,
   useForegroundPermissions,
 } from "expo-location";
-import { FC, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constants/colors";
@@ -15,14 +15,11 @@ import {
   useRoute,
   useIsFocused,
 } from "@react-navigation/native";
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from "@react-navigation/native-stack";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { ILocation } from "../../types/place";
 
-type routeParams = RouteProp<RootStackParamList, "AddPlace">;
+type RouteParams = RouteProp<RootStackParamList, "AddPlace">;
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "AddPlace">;
 
@@ -33,7 +30,7 @@ interface LocationPickerProps {
 function LocationPicker({ onPickLocation }: LocationPickerProps) {
   const [pickedLocation, setPickedLocation] = useState<ILocation | null>(null);
   const navigation = useNavigation<NavigationProp>();
-  const route = useRoute<routeParams>();
+  const route = useRoute<RouteParams>();
   const isFocused = useIsFocused();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -60,6 +57,7 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
         onPickLocation({ ...pickedLocation, address: address });
       }
     }
+    getFormattedAddress();
   }, [pickedLocation, onPickLocation]);
 
   const verifyPermission = useCallback(async (): Promise<boolean> => {
