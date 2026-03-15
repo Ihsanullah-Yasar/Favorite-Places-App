@@ -18,10 +18,14 @@ import { ILocation } from "../../types/place";
 import { PickedImage } from "../../types/image";
 
 interface PlaceFormProps {
+  onCreatePlace: (place: Place) => void;
   initialData?: Partial<Place>;
 }
 
-const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
+const PlaceForm: React.FC<PlaceFormProps> = ({
+  initialData,
+  onCreatePlace,
+}): JSX.Element => {
   const [enteredTitle, setEnteredTitle] = useState<string>(
     initialData?.title || "",
   );
@@ -40,6 +44,14 @@ const PlaceForm: React.FC<PlaceFormProps> = ({ initialData }): JSX.Element => {
   }, []);
 
   const savePlaceHandler = () => {
+    if (enteredTitle && selectedImage && pickedLocation) {
+      const placeData = new Place(
+        enteredTitle,
+        selectedImage.uri,
+        pickedLocation,
+      );
+      onCreatePlace(placeData);
+    }
     console.log(enteredTitle);
     console.log(selectedImage);
     console.log(pickedLocation);
