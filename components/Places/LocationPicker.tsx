@@ -105,7 +105,7 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
       }}
     />
   ) : (
-    <Text>No location picked yet</Text>
+    <Text>No location picked yet.</Text>
   );
   console.log(pickedLocation);
   return (
