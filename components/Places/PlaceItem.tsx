@@ -91,10 +91,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
     backgroundColor: "#f0f0f0", // Placeholder color
   },
-  infoContainer: {
-    flex: 1,
-    justifyContent: "center",
-  },
+
   title: {
     fontSize: 16,
     fontWeight: "600",
