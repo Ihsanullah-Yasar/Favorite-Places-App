@@ -9,7 +9,6 @@ interface PlaceListProps {
   onPlacePress?: (placeId: string) => void;
   // keyExtractor?: (item: Place, index: number) => string;
   emptyMessage?: string;
-  testID?: string;
 }
 
 //Default empty state component
@@ -25,7 +24,6 @@ const PlaceList: React.FC<PlaceListProps> = ({
   places,
   onPlacePress,
   emptyMessage = "No places to display.",
-  testID = "place-list",
 }) => {
   // Memoized key extractor
   const keyExtractor = useCallback((item: Place): string => {
