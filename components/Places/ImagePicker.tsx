@@ -26,8 +26,8 @@ const CAMERA_OPTIONS: ImagePickerOptions = {
   allowsEditing: true,
   aspect: [16, 9],
   quality: 0.5,
-  // mediaTypes: "images",
-  // allowsMultipleSelection: false
+  mediaTypes: "images",
+  allowsMultipleSelection: false
 };
 
 function ImagePicker({ onTakeImage }: ImagePickerProps) {
