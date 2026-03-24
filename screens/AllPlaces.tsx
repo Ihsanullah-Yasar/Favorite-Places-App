@@ -108,8 +108,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
     color: "#ff0000",
-    textAlign: "center",
-    marginBottom: 16,
+    
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
