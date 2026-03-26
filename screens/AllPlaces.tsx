@@ -27,17 +27,17 @@ function AllPlaces({ navigation }: AllPlacesProps) {
   const [error, setError] = useState<string | null>(null);
   const isFocused = useIsFocused();
   const route = useRoute<RouteParams>();
-  // Load places when screen comes into focus
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     loadPlaces();
-  //   }, [])
-  // );
-  useEffect(() => {
-    if (isFocused && route.params) {
-      setPlaces((curPlaces) => [...curPlaces, route.params.place]);
-    }
-  }, [isFocused, route]);
+  Load places when screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      loadPlaces();
+    }, [])
+  );
+  // useEffect(() => {
+  //   if (isFocused && route.params) {
+  //     setPlaces((curPlaces) => [...curPlaces, route.params.place]);
+  //   }
+  // }, [isFocused, route]);
 
   /**
    * Load places from storage/service
