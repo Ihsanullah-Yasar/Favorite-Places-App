@@ -79,5 +79,7 @@ function Map({ navigation }: MapProps) {
 export default Map;
 
 const styles = StyleSheet.create({
-  
+  map: {
+    flex: 1,
+  },
 });
